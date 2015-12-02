@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha test/",
+    "testOne": "mocha",
     "start": "nodemon ./bin/www"
   },
   "repository": {
@@ -12,10 +13,8 @@
     "url": "git+https://github.com/monkeyFeathers/hatch-chart-api.git"
   },
   "keywords": [
-    "hatch",
-    "chart",
-    "fly",
-    "fishing",
+    "hatch chart",
+    "fly fishing",
     "oregon",
     "rivers",
     "express",
