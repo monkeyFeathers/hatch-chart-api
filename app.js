@@ -14,7 +14,6 @@ var app = express();
 
 mongoose.connect(process.env.MONGO_CONNECTION)
 
-var Hatch = require('./models/Hatch');
 var Bug = require('./models/Bug');
 
 // uncomment after placing your favicon in /public
