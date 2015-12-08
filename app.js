@@ -4,7 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose')
+var mongoose = require('mongoose');
+var passport = require('passport');
+var BearerStrategy = require('passport-http-bearer').Strategy;
+var GithubStrategy = require('passport-github').Strategy;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -14,8 +17,39 @@ var app = express();
 
 mongoose.connect(process.env.MONGO_CONNECTION)
 
-var Hatch = require('./models/Hatch');
+var User = require('./models/User');
 var Bug = require('./models/Bug');
+
+// github auth setup
+options = {
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_APP_SECRET,
+  callbackURL: 'http://localhost:3127/auth/github/callback'
+};
+
+passport.use(
+  new GithubStrategy(options,
+    function(accessToken, refreshToken, profile, done) {
+      User.findOrCreate({githubId: profile.id}, function(err, result) {
+        if (result) {
+          result.access_token = accessToken;
+          result.save(function(err, doc) { done(err, doc) })
+        } else { done(err, result) }
+      });
+    })
+);
+
+// token auth setup
+passport.use(new BearerStrategy(function(token, done) {
+  User.findOne({access_token: token})
+    .then(
+      function(user) {
+        if (!user) return done(null, false);
+        return done(null, user, {scope: 'all'});
+      },
+      function(err) { if (err) return done(err) }
+  )
+}))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -27,7 +61,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/bugs', bugs);
+app.use('/api/bugs', routes.authorizeBearer, bugs);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

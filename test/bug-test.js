@@ -1,8 +1,11 @@
 var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = chai.expect;
-var appRootUrl = 'http://localhost:3127'
-var bugStubs = require('./bugStubs')
+var assert = chai.assert;
+var appRootUrl = 'http://localhost:3127';
+var apiRootUrl = appRootUrl + '/api';
+var bugStubs = require('./bugStubs');
+var _ = require('lodash');
 
 
 chai.use(chaiHttp);
@@ -24,8 +27,8 @@ describe('Bug crud', function() {
   describe('#create', function() {
 
     it('should create a new bug on POST to /bugs', function(bugOut) {
-      chai.request(appRootUrl)
-        .post('/bugs')
+      chai.request(apiRootUrl)
+        .post('/bugs').set('Authorization', 'Bearer ' + process.env.m_token)
         .send(bugStubs.BWO)
         .then(function(res) {
           expect(res).to.have.status(200);
@@ -44,17 +47,17 @@ describe('Bug crud', function() {
     describe('#read', function() {
 
       it('should return all the bugs with GET /bugs', function(bugOut) {
-        chai.request(appRootUrl).get('/bugs')
+        chai.request(apiRootUrl).get('/bugs').set('Authorization', 'Bearer ' + process.env.m_token)
         .then(function(res) {
           expect(res).to.have.status(200)
-          expect(res.body[res.body.length - 1]._id).to.deep.eql(bugId)
+          expect(_.chain(res.body).pluck('_id').includes(bugId)).to.be.ok;
           bugOut();
         })
         .catch(function(err) { if (err) bugOut(err) });
       });
 
       it('should return a specific bug with GET /bugs/:id', function(bugOut) {
-        chai.request(appRootUrl).get('/bugs/' + bugId)
+        chai.request(apiRootUrl).get('/bugs/' + bugId).set('Authorization', 'Bearer ' + process.env.m_token)
         .then(function(res) {
           expect(res).to.have.status(200)
           expect(res.body._id).to.eql(bugId)
@@ -69,8 +72,8 @@ describe('Bug crud', function() {
     describe('#update', function() {
 
       it('should update on PUT to /bugs/:id', function(bugOut) {
-        chai.request(appRootUrl)
-        .put('/bugs/' + bugId)
+        chai.request(apiRootUrl)
+        .put('/bugs/' + bugId).set('Authorization', 'Bearer ' + process.env.m_token)
         .send({scientificName: 'Baetidae Acerpenna pygmaea'})
         .then(function(res) {
           expect(res).to.have.status(200);
@@ -85,8 +88,8 @@ describe('Bug crud', function() {
     describe('#delete', function() {
 
       it('should delete a bug on DELETE to /bugs/:bug', function(bugOut) {
-        chai.request(appRootUrl)
-          .del('/bugs/' + bugId)
+        chai.request(apiRootUrl)
+          .del('/bugs/' + bugId).set('Authorization', 'Bearer ' + process.env.m_token)
           .then(function(res) {
             expect(res).to.have.status(200);
             expect(res.text).to.eql('1 bug successfully deleted');
