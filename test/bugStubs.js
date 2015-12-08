@@ -17,6 +17,15 @@ module.exports = {
       {name: 'pupa', patterns:['Chans Chironomid Pupa', 'Chironomid Pupa', 'Serendipity'], sizeColor: '10-22/Black, gray, olive, red, creams, browns'},
       {name: 'Adult', patterns:['Sprout Midge', 'Renegade', 'Griffiths Gnat'], sizeColor: '10-22/Black, gray, olive, red, creams, browns; 10-22/Peacock'},
     ]
+  },
+  SpottedCaddis : {
+    scientificName: '',
+    commonName: 'Spotted Caddis',
+    stages: [
+      {name: 'Larva', patterns:['Sparkle Larva', 'Zug Bug'], sizeColor: '10-14/Body: green,tan, cream, brown; 10-14/Body: green,tan, cream, brown; Thorax: darker'},
+      {name: 'Pupa', patterns:['Z Wing Caddis','Soft Hackle','Sparkle Pupa','Deep Sparkle Pupa'], sizeColor: '10-14/Body: tan, brown, yellow-tan, green; 10-14/Body: tan, brown, yellow-tan, green; 10-14/Body: tan, brown, yellow-tan, green - Shroud: tan; 10-14/Body: tan, brown, yellow-tan - Shroud: tan'},
+      {name: 'Adult', patterns:['Elk Hair Caddis, X Caddis', 'Comparadun', 'No Hackle', 'Thorax Dun'], sizeColor: '16-22/Olive, Olive-brown'},
+    ]
   }
 
 }

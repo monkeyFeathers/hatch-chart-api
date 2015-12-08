@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   githubId: String,
-  access_token: String
+  access_token: String,
+  role: String
 })
 
 UserSchema.statics.findOrCreate = function(filters, cb) {
