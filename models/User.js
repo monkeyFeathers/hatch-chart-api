@@ -13,7 +13,7 @@ UserSchema.statics.findOrCreate = function(filters, cb) {
       var newUser = new User();
       newUser.githubId = filters.githubId;
       newUser.save(function(err, doc) { cb(err, doc) });
-    } else { cb(err, results[0]);
+    } else { cb(err, results[0]); }
   });
 }
 

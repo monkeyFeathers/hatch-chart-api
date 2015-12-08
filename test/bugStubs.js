@@ -48,15 +48,14 @@ Blue Wing Olive
       Surface swing
       runs, slowish riffles
 
-Spotted caddis
-BWO : {
+
+SpottedCaddis : {
   scientificName: '',
-  commonName: 'Blue Wing Olive',
+  commonName: 'Spotted Caddis',
   stages: [
-    {name: 'nymph', patterns:['Hares Ear', 'Pheasant Tail', 'A. P. Nymph'], sizeColor: '16-22/Brown, brown-olive'},
-    {name: 'emerger', patterns:['Floating Nymph'], sizeColor: '16-22/Olive, Olive-brown'},
-    {name: 'dun', patterns:['Parachute Baetis', 'Sparkle Dun', 'Comparadun', 'No Hackle', 'Thorax Dun'], sizeColor: '16-22/Olive, Olive-brown'},
-    {name: 'spinner', patterns:['Rusty Spinner', 'Diving Caddis'], sizeColor: '16-22/Olive, Olive-brown'},
+    {name: 'Larva', patterns:['Sparkle Larva', 'Zug Bug'], sizeColor: '10-14/Body: green,tan, cream, brown; 10-14/Body: green,tan, cream, brown; Thorax: darker'},
+    {name: 'Pupa', patterns:['Z Wing Caddis','Soft Hackle','Sparkle Pupa','Deep Sparkle Pupa'], sizeColor: '10-14/Body: tan, brown, yellow-tan, green; 10-14/Body: tan, brown, yellow-tan, green; 10-14/Body: tan, brown, yellow-tan, green - Shroud: tan; 10-14/Body: tan, brown, yellow-tan - Shroud: tan'},
+    {name: 'Adult', patterns:['Elk Hair Caddis, X Caddis', 'Comparadun', 'No Hackle', 'Thorax Dun'], sizeColor: '16-22/Olive, Olive-brown'},
   ]
 }
   Larva ,
@@ -78,11 +77,11 @@ BWO : {
         Surface swing, Shallow nymph
         Riffles, runs, just below riffles
     Sparkle Pupa
-      10-14/Body: tan, brown, yellow-tan, green; Shroud: tan
+      10-14/Body: tan, brown, yellow-tan, green - Shroud: tan
       Indicator, Tight line, Shallow nymph
       Riffles, runs, just below riffles
     Deep Sparkle Pupa
-      10-14/Body: tan, brown, yellow-tan; Shroud: tan
+      10-14/Body: tan, brown, yellow-tan - Shroud: tan
       Indicator, Tight line
       Riffles, runs, just below riffles
   Adult

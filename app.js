@@ -20,6 +20,7 @@ mongoose.connect(process.env.MONGO_CONNECTION)
 var User = require('./models/User');
 var Bug = require('./models/Bug');
 
+// github auth setup
 options = {
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_APP_SECRET,
@@ -35,8 +36,20 @@ passport.use(
           result.save(function(err, doc) { done(err, doc) })
         } else { done(err, result) }
       });
-    });
+    })
 );
+
+// token auth setup
+passport.use(new BearerStrategy(function(token, done) {
+  User.findOne({access_token: token})
+    .then(
+      function(user) {
+        if (!user) return done(null, false);
+        return done(null, user, {scope: 'all'});
+      },
+      function(err) { if (err) return done(err) }
+  )
+}))
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
